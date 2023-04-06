@@ -1,0 +1,94 @@
+<ion-content>
+  <div class="main__body" id="myElement">
+    <div class="heading_alinment">
+      <h1>Student Details</h1>
+      <div style="display: flex; gap: 10px;">
+        <button class="add_button" (click)="takeScreenshot()">Screen Shot</button>
+      <button class="add_button" (click)="openModal(null,false)">Add Details</button>
+      </div>
+    </div>
+    <table class="table">
+      <thead class="table__header">
+        <tr style="vertical-align: start">
+          <th scope="col">Id</th>
+          <!-- <th scope="col">Image</th> -->
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="vertical-align: start" *ngFor="let data of studentList">
+          <td>
+            <div class="orders_data">{{data.STUDENT_ID}}</div>
+          </td>
+          <!-- <td>
+            <div class="sutdent_img">
+              <img [src]="data?.IMAGE.changingThisBreaksApplicationSecurity" alt="Student Image">
+              <div id=`student_image${data.STUDENT_ID}`></div>
+            </div>
+          </td> -->
+          <td>
+            <div class="orders_data">{{data.NAME}}</div>
+          </td>
+          <td>
+            <div class="orders_data">{{data.ADDRESS}}</div>
+          </td>
+          <td>
+            <button style="background: transparent;" (click)="openModal(data, true)">
+              <ion-icon style="font-size: 30px;" name="create-outline"></ion-icon>
+            </button>
+          </td>
+          <td>
+            <button style="background: transparent;" (click)="removeFunc(data.NAME)">
+              <ion-icon style="font-size: 30px;" name="trash-outline"></ion-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ion-content>
+
+<ng-template #addCategory>
+  <div class="wrapper">
+    <button mat-dialog-close class="btn__transparent btn__close">
+      <ion-icon style="opacity: 0.5" name="close"></ion-icon>
+    </button>
+  </div>
+  <div style="padding: 10px;">
+    <h1>Add Details</h1>
+    <form (ngSubmit)="updateProfileForm.valid && addUpdateDetails()" #updateProfileForm="ngForm">
+      <div class="row">
+        <div>
+          <input type="file" (change)="onFileSelected($event)" id="image" name="image" />
+        </div>
+      <div id="image-container"></div>
+        <div class="col-6" style="margin-top: 10px;">
+          <mat-form-field style="width: 60%;" appearance="outline">
+            <mat-label>Student Id</mat-label>
+            <input matInput type="text" [(ngModel)]="student_info.STUDENT_ID" id="id" placeholder="Student Id"
+              name="id" />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field style="width: 60%;" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [(ngModel)]="student_info.NAME" id="name" placeholder="Name" name="name" />
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field style="width: 60%;" appearance="outline">
+            <mat-label>Address</mat-label>
+            <input [(ngModel)]="student_info.ADDRESS" type="text" placeholder="Name" name="Address" matInput />
+          </mat-form-field>
+        </div>
+        <div>
+          <button class="add_button" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
